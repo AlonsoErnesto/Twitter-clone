@@ -26,14 +26,14 @@ class Database {
     // Configurar las sesiones con MongoDB
     setupSession() {
         this.app.use(session({
-            secret: 'your-secret',  // Cambia esto por un secreto más seguro
+            secret: process.env.SECRET_KEY,
             resave: false,
             saveUninitialized: false,
             store: new MongoStore({
-                mongoUrl: process.env.DATABASE_MONGODB,  // Especificar la URL de la base de datos MongoDB
-                ttl: 14 * 24 * 60 * 60  // Tiempo de vida de la sesión en segundos (14 días)
+                mongoUrl: process.env.DATABASE_MONGODB,
+                ttl: 14 * 24 * 60 * 60
             }),
-            cookie: { secure: process.env.NODE_ENV === 'production' }  // Usa cookies seguras en producción
+            cookie: { secure: process.env.NODE_ENV === 'production' }
         }));
     }
 }
