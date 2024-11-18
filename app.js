@@ -11,7 +11,9 @@ const server = app.listen(port, () => console.log("Server listening on port " + 
 const io = require("socket.io")(server, { pingTimeout: 60000 });
 
 app.set("view engine", "pug");
-app.set("views", "views");
+// app.set("views", "views");
+app.set("views", path.join(__dirname, "views"));
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -85,7 +87,7 @@ io.on("connection", socket => {
         if(!chat.users) return console.log("Chat.users not defined");
 
         chat.users.forEach(user => {
-            
+
             if(user._id == newMessage.sender._id) return;
             socket.in(user._id).emit("message received", newMessage);
         })
