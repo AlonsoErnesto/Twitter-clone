@@ -6,9 +6,6 @@
 //import/export works in ES6.
 const mongoose = require("mongoose");
 require('dotenv').config({ path: '.env' });
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useUnifiedTopology', true);
-mongoose.set('useFindAndModify', false);
 
 class Database {
 
@@ -17,7 +14,6 @@ class Database {
     }
 
     connect() {
-        console.log('DATABASE_MONGODB:', process.env.DATABASE_MONGODB); // Verifica si la URL de MongoDB está cargada
         mongoose.connect(process.env.DATABASE_MONGODB)
             .then(() => {
                 console.log("database connection successful");
